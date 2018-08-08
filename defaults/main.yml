@@ -1,0 +1,25 @@
+---
+
+    mail_smarthost: "localhost"
+
+    admin_mail: ""
+
+    install_prefix: "/opt/SI5000"
+
+<<<<<<< HEAD
+    docker_network_name: monitoring-net
+
+    volumed_services:
+      - prometheus
+      - grafana
+
+    grafana_user: admin
+    grafana_password: admin
+    grafana_public_domain: monitoring.iot.iskrauraltel.ru
+
+    volumes_prefix_prometheus: "{{ project_basedir }}/prometheus"
+    volumes_prefix_grafana: "{{ project_basedir }}/grafana"
+=======
+    software_version: "0.16.0"
+    deployment_archive_url: "https://github.com/prometheus/node_exporter/releases/download/v{{ software_version }}/node_exporter-{{ software_version }}.linux-amd64.tar.gz"
+>>>>>>> 89d7e5fde04ad346a9f95b4c13d771764dc3e113

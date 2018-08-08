@@ -1,0 +1,26 @@
+---
+
+- name: "Create {{ install_prefix }} directory"
+  file:
+    state: directory
+    path: "{{ install_prefix }}"
+
+- name: Get and unpack Node Exporter deployment archive
+  shell: "wget -qO- {{ deployment_archive_url }} | tar -C {{ install_prefix }} -xzf -"
+
+- name: Link unpacked Node Exporter to execution path
+  file:
+    state: link
+    src: "{{ install_prefix }}/node_exporter-{{ software_version }}.linux-amd64/node_exporter"
+    dest: /usr/local/bin/node_exporter
+
+- name: Deploy Node Exporter Upstart service template (for Ubuntu 14.04)
+  template:
+    src: node-exporter-initconf.j2
+    dest: /etc/init/node-exporter.conf
+
+- name: Activate and start Node Exporter Upstart service (for Ubuntu 14.04)
+  service:
+    name: node-exporter
+    enabled: true
+    state: started

@@ -1,0 +1,4 @@
+- name: Test Node Exporter service port
+  wait_for:
+    port: 9100
+  tags: test
