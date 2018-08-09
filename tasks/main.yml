@@ -1,18 +1,8 @@
-
 ---
 
-- name: Import deploy tasks for Ubuntu 14.04
-  import_tasks: ubuntu-trusty-deploy.yml
-  when:
-    - ansible_distribution == "Ubuntu"
-    - ansible_distribution_version == "14.04"
-
-- name: Import standard deploy tasks
-  import_tasks: standard-deploy.yml
-  when:
-    - ansible_distribution != "Ubuntu"
-    - ansible_distribution_version != "14.04"
+- name: Import containers deploy tasks
+  import_tasks: containers-deploy.yml
 
 - name: Import service-testing tasks
-  import_tasks: service-tests.yml
+  import_tasks: post-tests.yml
   tags: test

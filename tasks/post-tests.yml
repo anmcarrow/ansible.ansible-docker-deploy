@@ -1,0 +1,24 @@
+---
+- name: "Run Ansible container once with interactive `ansible --version` command"
+  docker_container:
+    name: ansible-test
+    hostname: "{{ ansible_hostname }}"
+    state: started
+    pull: no
+    recreate: yes
+    cleanup: yes
+    detach: no
+    restart_policy: "unless-stopped"
+    image: "{{ ct_image_name }}"
+    command:
+     - 'ansible'
+     - '--version'
+
+  register: ct_posttest
+  tags: ansible,test
+
+- name: Fail-test for first run output emtiness
+  fail:
+    msg: "Fail: Empty output of the first run"
+  when: ct_posttest.ansible_facts.docker_container == ""
+  tags: ansible,test
